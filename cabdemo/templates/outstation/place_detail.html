@@ -1,0 +1,26 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailimages_tags %}
+
+<div id="imageCarousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    {% for places_image in self.images %}
+      {% image places_image.image fill-1280x400 as img %}
+      <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+        <img class="d-block w-100" src ="{{img.url}}" alt="{{img.alt  }}">
+      </div>
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class="route-location-detail padding-30">
+<div class="upper location-heading-1">{{self.place}}</div>
+<div class="location-detail-1">{{self.details}}</div>
+<div class="padding-top-bottom-30"><button class="add-location-button">Remove</button> | {{self.duration_of_visit}}</div>
+</div>

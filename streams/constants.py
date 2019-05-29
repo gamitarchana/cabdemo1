@@ -1,0 +1,18 @@
+""" Constants"""
+MAX_RATING = 5
+
+LODGING=1
+PETROL_PUMP=2
+EATING_PLACE=3
+
+AMENITIES = {
+    'LODGING': LODGING,
+    'PETROL_PUMP': PETROL_PUMP,
+    'EATING_PLACE':EATING_PLACE
+}
+
+AMENITIES_CHOICES=[
+    (LODGING, "Lodging"),
+    (PETROL_PUMP, "Petrol Pump"),
+    (EATING_PLACE, "Eating Place"),
+]

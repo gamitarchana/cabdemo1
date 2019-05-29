@@ -1,0 +1,24 @@
+{% load static %}
+{% block content %}
+<header>
+  <nav class="navbar" id="nav-menu">
+        <a href="#"><img class="logo" src="{% static 'images/meru_logo.png' %}"></a>
+        {% for menu in menuitems %}
+        <a href="{{menu.url}}">{{menu.title}}</a>
+        {% endfor %}
+        <a href="javascript:void(0);" class="menu-icon" onclick="openMenu()">
+          <i class="fa fa-bars"></i>
+        </a>
+  </nav>
+</header>
+<script>
+function openMenu() {
+  var topMenu = document.getElementById("nav-menu");
+  if (topMenu.className === "navbar") {
+    topMenu.className += " menu-responsive";
+  } else {
+    topMenu.className = "navbar";
+  }
+}
+</script>
+{% endblock %}

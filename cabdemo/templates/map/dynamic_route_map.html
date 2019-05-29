@@ -1,0 +1,57 @@
+{% load static %}
+
+{% load filters responsive_image %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div id="dynamicRouteMap">
+  {% for place in placeList %}
+    <div id="mapBlock-{{place.id}}" class="map-block-{{forloop.counter}} map-block " style="position:relative" >
+      <!--div class="map-info-container {% if forloop.counter|divisibleby:2 %}map-left{% else %}map-right{% endif %}"-->
+      <div class="{% if forloop.counter|divisibleby:2 %}map-info-left-container{% else %}map-info-right-container{% endif %}">
+      {% with place.value.images|item:"0" as places_image %}
+        {% image places_image.image fill-200x200 as place_img %}
+          <img class="map-image" src ="{{place_img.url}}" alt="">
+      {% endwith %}
+      <div id="mapInfo" class="{% if forloop.counter|divisibleby:2 %}map-info-left{% else %}map-info-right{% endif %}">
+      <div class="tooltip">
+        <div class="map-label upper margin-top-bottom-10">{{place.value.place}}</div>
+        <span class="tooltiptext" >{{place.value.place}}</span>
+      </div>
+      <div class="map-distance-container margin-top-bottom-10">
+        <div class="map-distance">{{place.value.distance_from_start_location}}</div>
+        <div style="font-size:14px; font-weight:bold;">km</div>
+      </div>
+      <div style="height:80px;">
+      {% image place.value.map_icon.map_icon max-200x200 as place_icon %}
+          <img  src ="{{place_icon.url}}" alt="" style="height:100%;">
+
+      </div>
+      </div>
+      </div>
+      <div class="{% if forloop.counter|divisibleby:2 %}map-amenities-right-container{% else %}map-amenities-left-container{% endif %}">
+        {% for location_amenity in place.value.amenities %}
+                    <div style="margin-top:50px">
+            {% if location_amenity.amenity_type|add:0 == AMENITIES|get_item:'LODGING' %}
+            <div class="padding-top-bottom-30 inline-block tooltip">
+              <i class='fa fa-bed map-amenities-icon'></i>
+              <span class="tooltiptext" >{{location_amenity.location}}</span>
+            </div>
+            {% endif %}
+            {% if location_amenity.amenity_type|add:0 == AMENITIES|get_item:'EATING_PLACE' %}
+            <div><div class="block-container tooltip">
+              <i class='fa fa-utensils map-amenities-icon'></i>
+              <span class="tooltiptext" >{{location_amenity.location}}</span>
+            </div></div>{% endif %}
+            {% if location_amenity.amenity_type|add:0 == AMENITIES|get_item:'PETROL_PUMP' %}
+            <div><div class="block-container tooltip">
+              <i class='fa fa-gas-pump map-amenities-icon'></i>
+              <span class="tooltiptext" >{{location_amenity.location}}</span>
+            </div></div>
+          {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      </div>
+  {% endfor %}
+</div>

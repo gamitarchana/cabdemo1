@@ -1,0 +1,47 @@
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+<!-- style="width:300px; margin:0px auto";-->
+
+<!--/div-->
+<div id="imageCarousel-{{id}}" class="margin-top-bottom-30">
+<div >
+  {% for img in images %}
+    <div id="slide-{{id}}-{{forloop.counter}}" class="hide">
+      <img class="d-block w-100"  src ="{{img.image.url}}" alt="{{img.alt}}">
+    </div>
+  {% endfor %}
+</div>
+<button id="prev" class="carousel-button left"><i style="font-size:24px; color:#fff; font-weight:bold;" class="fa fa-angle-left"></i></button>
+<button id="next" class="carousel-button right"><i style="font-size:24px; color:#fff; font-weight:bold;" class="fa fa-angle-right"></i></button>
+</div>
+
+<!--button id="p" style="width:80px">previous</button-->
+<!--button id="next" style="width:80px">next</button-->
+
+<script type="text/javascript">
+(function () {
+    var currentSlide = 1;
+    var totalSlides = "{{images|length}}";
+    $("#slide-{{id}}-"+currentSlide).removeClass('hide');
+  $("#next").on('click', function(){
+    console.log("next")
+    if(currentSlide<totalSlides){
+      $("#slide-{{id}}-"+currentSlide).addClass('hide');
+      currentSlide=currentSlide+1;
+      $("#slide-{{id}}-"+currentSlide).removeClass('hide');
+    }
+  })
+  $("#prev").on('click', function(){
+    console.log("prev");
+    if(currentSlide>1){
+      $("#slide-{{id}}-"+currentSlide).addClass('hide');
+      currentSlide=currentSlide-1;
+      $("#slide-{{id}}-"+currentSlide).removeClass('hide');
+    }
+  })
+
+  })();
+  </script>
+{% endblock %}
